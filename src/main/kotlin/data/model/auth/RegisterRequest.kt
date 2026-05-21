@@ -1,9 +1,9 @@
-package com.example.domain.model
+package com.example.data.model.auth
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class LoginRequest(
+data class RegisterRequest(
     val login: String,
     val password: String
 )

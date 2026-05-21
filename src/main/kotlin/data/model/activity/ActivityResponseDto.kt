@@ -1,6 +1,9 @@
-package com.example.domain.model
+package com.example.data.model.activity
 
-data class Activity(
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class ActivityResponseDto(
     val id: Int,
     val userId: Int,
     val title: String,

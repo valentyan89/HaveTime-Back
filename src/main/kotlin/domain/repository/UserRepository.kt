@@ -6,4 +6,5 @@ interface UserRepository {
     suspend fun createUser(login: String, passwordHash: String): User
     suspend fun findByLogin(login: String): User?
     suspend fun findById(id: Int): User?
+    suspend fun getPasswordHash(login: String): String?
 }
