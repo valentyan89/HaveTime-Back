@@ -1,0 +1,20 @@
+# Gradle файлы
+.gradle/
+build/
+
+# IntelliJ IDEA файлы
+.idea/
+*.iml
+*.iws
+out/
+
+# Конфиденциальные данные (Environment variables)
+.env
+local.properties
+
+# Логи
+*.log
+
+# Операционная система
+.DS_Store
+Thumbs.db
