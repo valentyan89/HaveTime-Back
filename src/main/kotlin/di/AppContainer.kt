@@ -1,5 +1,6 @@
 package com.example.di
 
+import com.example.controller.ActivityController
 import com.example.controller.AuthController
 import com.example.data.repository.ActivityRepositoryImpl
 import com.example.data.repository.UserRepositoryImpl
@@ -13,6 +14,7 @@ import com.example.domain.usecase.LoginUseCase
 import com.example.domain.usecase.RegisterUseCase
 import com.example.domain.usecase.SyncUseCase
 import com.example.security.PasswordHasher
+import io.ktor.server.application.Application
 
 object AppContainer {
     val userRepository: UserRepository by lazy { UserRepositoryImpl() }
@@ -26,8 +28,13 @@ object AppContainer {
 
     val getActivitiesUseCase: GetActivitiesUseCase by lazy { GetActivitiesUseCase(activityRepository) }
     val getActivitiesAfterTimeUseCase: GetActivitiesAfterTimeUseCase by lazy { GetActivitiesAfterTimeUseCase(activityRepository) }
-    val syncUseCase: SyncUseCase by lazy { SyncUseCase(activityRepository) }
+    val syncUseCase: SyncUseCase by lazy { SyncUseCase(activityRepository, getActivitiesAfterTimeUseCase) }
     val deleteActivityUseCase: DeleteActivityUseCase by lazy { DeleteActivityUseCase(activityRepository) }
 
     val authController: AuthController by lazy { AuthController(loginUseCase, registerUseCase, getUserUseCase) }
+    val activityController: ActivityController by lazy { ActivityController(syncUseCase, deleteActivityUseCase, getActivitiesUseCase) }
+}
+
+fun Application.appModule() {
+    println("DI инициализирован")
 }

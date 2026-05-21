@@ -32,3 +32,17 @@ fun ResultRow.toActivityDto(): ActivityResponseDto {
         updatedAt = this[ActivityTable.updatedAt]
     )
 }
+
+fun Activity.toDto(): ActivityResponseDto {
+    return ActivityResponseDto(
+        id = id,
+        userId = userId,
+        title = title,
+        startTime = startTime,
+        endTime = endTime,
+        lat = lat,
+        lon = lon,
+        address = address,
+        updatedAt = updatedAt
+    )
+}

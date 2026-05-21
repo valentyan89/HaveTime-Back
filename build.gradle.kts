@@ -27,10 +27,13 @@ dependencies {
     implementation(ktorLibs.server.swagger)
     implementation(libs.h2database.h2)
     implementation(libs.h2database.r2dbc)
-    implementation(libs.logback.classic)
 
     testImplementation(kotlin("test"))
     testImplementation(ktorLibs.server.testHost)
+
+    implementation("ch.qos.logback:logback-classic:1.4.14")
+    implementation("io.ktor:ktor-server-status-pages-jvm")
+    implementation("io.ktor:ktor-server-call-logging-jvm")
 
     val ktor_version = "3.0.1"
     implementation("io.ktor:ktor-client-cio:${ktor_version}")

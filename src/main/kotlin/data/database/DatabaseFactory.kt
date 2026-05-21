@@ -13,13 +13,9 @@ object DatabaseFactory {
     fun init(){
         val dotenv = dotenv()
         val dbUrl = dotenv["DATABASE_URL"]
-        val dbUsername = dotenv["DATABASE_USERNAME"]
-        val dbPassword = dotenv["DATABASE_PASSWORD"]
 
         val config = HikariConfig().apply {
             jdbcUrl = dbUrl
-            username = dbUsername
-            password = dbPassword
             driverClassName = "org.postgresql.Driver"
             isAutoCommit = false
             maximumPoolSize = 3
@@ -31,8 +27,6 @@ object DatabaseFactory {
 
         transaction {
             SchemaUtils.create(UsersTable, ActivityTable)
-
-
         }
 
         println("Database initialization complete!")
