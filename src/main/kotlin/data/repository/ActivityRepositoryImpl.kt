@@ -38,6 +38,7 @@ class ActivityRepositoryImpl: ActivityRepository {
                         it[id] = activity.id
                         it[ActivityTable.userId] = userId
                         it[title] = activity.title
+                        it[color] = activity.color
                         it[startTime] = activity.startTime
                         it[endTime] = activity.endTime
                         it[latitude] = activity.lat
@@ -51,6 +52,7 @@ class ActivityRepositoryImpl: ActivityRepository {
                     if (ownerId == userId) {
                         ActivityTable.update(where = { ActivityTable.id eq activity.id }) {
                             it[title] = activity.title
+                            it[color] = activity.color
                             it[startTime] = activity.startTime
                             it[endTime] = activity.endTime
                             it[latitude] = activity.lat

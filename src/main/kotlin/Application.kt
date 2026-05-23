@@ -12,7 +12,7 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 
 fun main(args: Array<String>) {
-    embeddedServer(Netty, port = 8080, host = "127.0.0.1") {
+    embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
         module()
     }.start(wait = true)
 }
@@ -26,6 +26,10 @@ fun Application.module() {
         server {
             url = "http://localhost:8080"
             description = "Локальный сервер"
+        }
+        server {
+            url = "http://0.0.0.1:8080"
+            description = "Локальный сервер для мобилки"
         }
         security {
             securityScheme("auth-jwt") {

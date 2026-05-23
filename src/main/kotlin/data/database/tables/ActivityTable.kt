@@ -5,6 +5,7 @@ import org.jetbrains.exposed.dao.id.IntIdTable
 object ActivityTable: IntIdTable("activities") {
     val userId = reference("client_id", UsersTable)
     val title = text("title")
+    val color = integer("color")
     val startTime = long("start_time")
     val endTime = long("end_time")
     val latitude = double("latitude").nullable()
