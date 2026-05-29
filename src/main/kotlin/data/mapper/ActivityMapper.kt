@@ -16,6 +16,7 @@ fun ActivityResponseDto.toDomain(): Activity {
         lat = lat,
         lon = lon,
         address = address,
+        isDeleted = isDeleted,
         updatedAt = updatedAt
     )
 }
@@ -31,6 +32,7 @@ fun ResultRow.toActivityDto(): ActivityResponseDto {
         lat = this[ActivityTable.latitude],
         lon = this[ActivityTable.longitude],
         address = this[ActivityTable.address],
+        isDeleted = this[ActivityTable.isDeleted],
         updatedAt = this[ActivityTable.updatedAt]
     )
 }
@@ -46,6 +48,7 @@ fun Activity.toDto(): ActivityResponseDto {
         lat = lat,
         lon = lon,
         address = address,
+        isDeleted = isDeleted,
         updatedAt = updatedAt
     )
 }

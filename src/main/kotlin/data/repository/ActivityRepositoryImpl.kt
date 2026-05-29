@@ -15,7 +15,7 @@ import org.jetbrains.exposed.sql.update
 
 class ActivityRepositoryImpl: ActivityRepository {
     override suspend fun getActivities(userId: Int): List<Activity> = newSuspendedTransaction {
-        ActivityTable.selectAll().where { ActivityTable.userId eq userId }
+        ActivityTable.selectAll().where { (ActivityTable.userId eq userId) and (ActivityTable.isDeleted eq false) }
             .map {
                 it.toActivityDto().toDomain()
             }
@@ -34,6 +34,8 @@ class ActivityRepositoryImpl: ActivityRepository {
                 val existingActivity = ActivityTable.selectAll().where { ActivityTable.id eq activity.id }.firstOrNull()
 
                 if (existingActivity == null) {
+                    if (activity.isDeleted) return@forEach
+
                     ActivityTable.insert {
                         it[id] = activity.id
                         it[ActivityTable.userId] = userId
@@ -45,6 +47,7 @@ class ActivityRepositoryImpl: ActivityRepository {
                         it[longitude] = activity.lon
                         it[address] = activity.address
                         it[updatedAt] = System.currentTimeMillis()
+                        it[isDeleted] = false
                     }
                 } else {
                     val ownerId = existingActivity[ActivityTable.userId].value
@@ -59,6 +62,7 @@ class ActivityRepositoryImpl: ActivityRepository {
                             it[longitude] = activity.lon
                             it[address] = activity.address
                             it[updatedAt] = System.currentTimeMillis()
+                            it[isDeleted] = activity.isDeleted
                         }
                     } else {
                         println("User $userId tried to overwrite activity of user $ownerId")
@@ -73,6 +77,10 @@ class ActivityRepositoryImpl: ActivityRepository {
     }
 
     override suspend fun deleteActivity(userId: Int, activityId: Int): Boolean = newSuspendedTransaction {
-        ActivityTable.deleteWhere { (ActivityTable.userId eq userId) and (ActivityTable.id eq activityId) } > 0
+        val rowsUpdated = ActivityTable.update({ (ActivityTable.userId eq userId) and (ActivityTable.id eq activityId) }) {
+            it[isDeleted] = true
+            it[updatedAt] = System.currentTimeMillis()
+        }
+        rowsUpdated > 0
     }
 }

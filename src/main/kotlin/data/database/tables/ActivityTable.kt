@@ -12,4 +12,5 @@ object ActivityTable: IntIdTable("activities") {
     val longitude = double("longitude").nullable()
     val address = text("address").nullable()
     val updatedAt = long("updated_at")
+    val isDeleted = bool("is_deleted").default(false)
 }

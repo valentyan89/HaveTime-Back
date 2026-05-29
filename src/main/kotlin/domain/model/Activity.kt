@@ -10,5 +10,6 @@ data class Activity(
     val lat: Double?,
     val lon: Double?,
     val address: String?,
-    val updatedAt: Long
+    val updatedAt: Long,
+    val isDeleted: Boolean = false
 )

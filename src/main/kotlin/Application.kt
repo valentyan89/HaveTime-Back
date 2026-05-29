@@ -27,10 +27,6 @@ fun Application.module() {
             url = "http://localhost:8080"
             description = "Локальный сервер"
         }
-        server {
-            url = "http://0.0.0.1:8080"
-            description = "Локальный сервер для мобилки"
-        }
         security {
             securityScheme("auth-jwt") {
                 type = AuthType.HTTP
