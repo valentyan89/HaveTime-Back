@@ -26,7 +26,7 @@ object DatabaseFactory {
         Database.connect(dataSource)
 
         transaction {
-            SchemaUtils.create(UsersTable, ActivityTable)
+
         }
 
         println("Database initialization complete!")
